@@ -5,6 +5,8 @@
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
 \usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amssymb}
 
 \title{Rapport du projet de graphes}
 \author{Baptiste Prunot
@@ -37,12 +39,27 @@
 			Si nous choisissons le sommet 1, nous remarquons qu'il est li\'e \'a aux sommets suivants :
 			
 			\itemize{
-				\item[*] le sommet 3 ce qui correspond \'a sommet+2
-				\item[*] le sommet 5 ce qui correspond \'a sommet+4
-				\item[*] le sommet 4 ce aui correspond \'a sommet+3
+				\item[*] le sommet 3 ce qui correspond \'a sommet+2 soit :
+				
+				
+				\fbox{
+				$sommet+tailleGraphe$
+				}
+				\item[*] le sommet 5 ce qui correspond \'a sommet+4 soit :
+				
+				
+				\fbox{
+				$sommet+tailleGraphe\times2$
+				}
+				\item[*] le sommet 4 ce qui correspond \'a sommet+3 soit : 
+				
+				
+				\fbox{
+				$sommet+tailleGraphe+1$
+				}
 			}
 			
-			
+			On pourrait donc conclure que pour generer le graphe il suffirait de lier chaque sommet avec les observations faites ci-dessus. Cependant, bien que lier un sommet
 			
 			
 			
