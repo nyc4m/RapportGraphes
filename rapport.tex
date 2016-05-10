@@ -31,7 +31,7 @@
 			Pour expliquer la methode utilis\'ee pour g\'en\'erer le graphe nous nous appuierons sur l'exemple d'une carte de taille 2.
 			
 			\begin{center}
-				\framebox[7cm]{
+				\framebox[7 cm]{
 					\includegraphics[scale=0.30]{Images/Graphe.png}
 				}
 			\end{center}
@@ -66,22 +66,51 @@
 			
 			
 			
-			\paragraph{graphe des licornes}
-			\paragraph{graphe des zombies}
+			\paragraph{\textcolor{blue}{graphe des licornes}}
+			\paragraph{\textcolor{blue}{graphe des zombies}}
 		\section{Mode manuel}
-			\paragraph{Effacer la coloration}
-			\paragraph{couleurs et distances}
+			\paragraph{\textcolor{blue}{Effacer la coloration}}
+			Ici le but est de colorié toutes les cases de la carte.
+			
+		Pour cela on fait une boucle qui parcoure toute les lignes  et une autre qui parcoure toutes les colonnes. A chaque passage de la boucle on créer un nouveau couple qui correspond à une case que l'on colorie en blanc (à noter qu'il y a 3x plus de lignes que de colonne.	 	
+			
+			Nous pouvons observer le résultat de cette fonction avec l'image ci-dessous, ici à terme d'exemple on colorira les cases en rouge.
+			
+			\begin{center}
+				\framebox[7 cm]{
+					\includegraphics[scale=0.30]{Images/effaceColoration.png}
+				}
+			\end{center}
+			
+			
+			\paragraph{\textcolor{blue} {couleurs et distances}}
+			Ici le but est de colorié les cases ou le joueur peut se déplacer.
+			Pour cela on va  se servir d'un Dijkstra qui va calculer la distance des sommets autour du vaisseau , ensuite on va colorier les cases de distance de 1 en vert et les cases de distances 2 en jaune. A noter que pour cela nous auront besoin d'une fonction qui transforme un sommet en couple.
+			
+				\begin{center}
+				\framebox[7 cm]{
+					\includegraphics[scale=0.30]{Images/colarationMouvement.png}
+				}
+			\end{center}
+			
+			
 			\paragraph{Mise en place de la coloration}
 			
 			
 	\chapter{mode automatique}
 		\section{Les races de base}
-			\paragraph{Mouvement des licornes}
-			\paragraph{Mouvement des zombies}
-			\paragraph{Les shadocks}
-			\paragraph{Optimisation des gibis}
-			\paragraph{Navigation suicidaire}
-			\paragraph{Coloniser plusieurs planètes}
+			\paragraph{\textcolor{blue}{Mouvement des licornes}}
+			Le principe ici est de calculer un Dijkstra puis grâce à une fonction on va pouvoir construire un chemin en se basant sur les antécédents de la planète.
+			\paragraph{\textcolor{blue}{Mouvement des zombies}}
+			Le principe ici est de recalculer un Dijkstra à chaque itération étant donné que le vaisseau des licornes est en mouvement.La fonction permettant de construire un chemin est ici réutilisée.
+			\paragraph{\textcolor{blue}{Les shadocks}}
+			Le principe ici est de calculer un Dijkstra de la planète Shadock puis de stocker les sommet à 3 ou moins de distances dans un ArrayList.Puis on sélectionne des sommets aléatoirement si le sommet et à moins de 1 de distances qui sera déterminée par un Dijkstra à partir du vaisseau alors celui ci se déplace.
+			\paragraph{\textcolor{blue}{Optimisation des gibis}}
+			\paragraph{\textcolor{blue}{Navigation suicidaire}}
+			Le principe ici est de faire en sorte que le vaisseau licorne ne se jette pas sur le vaisseau des zombies.
+			Pour ce faire il suffit de reprendre le principe d'isolation du sommet su soleil.
+			Ainsi le vaisseau de licorne n'ira pas sur la case vaisseau zombie en automatique et sera également géré dans le mode manuel
+			\paragraph{\textcolor{blue}{Coloniser plusieurs planètes}}
 	\setcounter{tocdepth}{4}
 	\tableofcontents
 \end{document}
