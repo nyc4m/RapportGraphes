@@ -7,6 +7,9 @@
 \usepackage{color}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{lmodern}
+\usepackage[top=2cm, bottom=2cm, right=2cm, left=2cm]{geometry}
+\usepackage{verbatim}
 
 \title{Rapport du projet de graphes}
 \author{Baptiste Prunot
@@ -31,7 +34,7 @@
 			Pour expliquer la methode utilis\'ee pour g\'en\'erer le graphe nous nous appuierons sur l'exemple d'une carte de taille 2.
 			
 			\begin{center}
-				\framebox[7 cm]{
+				\framebox[7cm]{
 					\includegraphics[scale=0.30]{Images/Graphe.png}
 				}
 			\end{center}
@@ -39,61 +42,94 @@
 			Si nous choisissons le sommet 1, nous remarquons qu'il est li\'e \'a aux sommets suivants :
 			
 			\itemize{
-				\item[*] le sommet 3 ce qui correspond \'a sommet+2 soit :
+				\item le sommet 3 ce qui correspond à sommet+2 soit :
 				
 				
-				\fbox{
+			
 				$sommet+tailleGraphe$
-				}
-				\item[*] le sommet 5 ce qui correspond \'a sommet+4 soit :
+				
+				\item le sommet 5 ce qui correspond à sommet+4 soit :
 				
 				
-				\fbox{
+				
 				$sommet+tailleGraphe\times2$
-				}
-				\item[*] le sommet 4 ce qui correspond \'a sommet+3 soit : 
+				
+				\item le sommet 4 ce qui correspond à sommet+3 soit : 
 				
 				
-				\fbox{
+				
 				$sommet+tailleGraphe+1$
-				}
+				
 			}
 			
-			On pourrait donc conclure que pour générer le graphe il suffirait de lier chaque sommet avec les observations faites ci-dessus. Cependant, bien que lier un sommet
+			On pourrait donc conclure que pour générer le graphe il suffirait de lier chaque sommet avec les observations faites ci-dessus. Cependant, bien que lier un sommet à son $sommet+taille\times2$ soit toujours vrai, les deux autres liaisons ne le sont pas forcément. ainsi on distingue deux cas :
+			
+			
+			\itemize{
+				\item les lignes paires
+				\item les lignes impaires
+				}
+				
+			Lorsque la ligne est paire, un sommet est lié à trois autres sommets :
+				
+				\itemize{
+					\item $sommet+taille\times2$
+					\item $sommet+taille$
+					\item $sommet+taille-1$
+				}
+				
+			En revanche lorsque la ligne est impaire, les liaisons sont définie de cette manière : 
+				
+				\itemize{
+					\item $sommet+taille\times2$
+					\item $sommet+taille$
+					\item $sommet+taille+1$
+					}
+					
+			Ces observations aboutissent au code java suivant : 
+			\\
+			\begin{verbatim}
+				public Graphe setGraphe(int taille) {
+        Graphe graphe = new Graphe(taille);
+        int nbSommet = graphe.getNbSommet();
+        int n = this.taille;
+        for (int i = 1; i <= nbSommet; i++) { 
+            for (int j = 1; j <= n; j++) { 
+                int position = j + (n * i) - n;
+                if (position + n * 2 <= nbSommet) { 
+                    graphe.ajouterArc(position, position + n * 2, 1);
+
+                }
+                if (position + n <= nbSommet) {
+                    graphe.ajouterArc(position, position + n, 1);
+                }
+
+                if (i % 2 != 0) {    
+                    if ((position + n + 1 <= nbSommet) && (j < n)) { 
+                        graphe.ajouterArc(position, position + n + 1, 1);
+                    }
+                } else if (position + n - 1 <= nbSommet && (j > 1 && j <= n)) {
+                    graphe.ajouterArc(position, position + n - 1, 1);
+                }
+            }
+        }
+        return graphe;
+    }
+			\end{verbatim}
+								
 			
 			
 			
 			
 			
 			
-			\paragraph{\textcolor{blue}{graphe des licornes}}
-			\paragraph{\textcolor{blue}{graphe des zombies}}
+			
+			
+			\paragraph{graphe des licornes}
+			\paragraph{graphe des zombies}
 		\section{Mode manuel}
-			\paragraph{\textcolor{blue}{Effacer la coloration}}
-			Ici le but est de colorié toutes les cases de la carte.
-			
-		Pour cela on fait une boucle qui parcoure toute les lignes  et une autre qui parcoure toutes les colonnes. A chaque passage de la boucle on créer un nouveau couple qui correspond à une case que l'on colorie en blanc (à noter qu'il y a 3x plus de lignes que de colonne.	 	
-			
-			Nous pouvons observer le résultat de cette fonction avec l'image ci-dessous, ici à terme d'exemple on colorira les cases en rouge.
-			
-			\begin{center}
-				\framebox[7 cm]{
-					\includegraphics[scale=0.30]{Images/effaceColoration.png}
-				}
-			\end{center}
-			
-			
-			\paragraph{\textcolor{blue} {couleurs et distances}}
-			Ici le but est de colorié les cases ou le joueur peut se déplacer.
-			Pour cela on va  se servir d'un Dijkstra qui va calculer la distance des sommets autour du vaisseau , ensuite on va colorier les cases de distance de 1 en vert et les cases de distances 2 en jaune. A noter que pour cela nous auront besoin d'une fonction qui transforme un sommet en couple.
-			
-				\begin{center}
-				\framebox[7 cm]{
-					\includegraphics[scale=0.30]{Images/colarationMouvement.png}
-				}
-			\end{center}
-			
-			
+			\paragraph{Effacer la coloration}
+			\paragraph{couleurs et distances}
 			\paragraph{Mise en place de la coloration}
 			
 			
