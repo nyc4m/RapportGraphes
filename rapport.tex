@@ -116,17 +116,60 @@
         return graphe;
     }
 			\end{verbatim}
-								
 			
+			Un graphe de taille 2 généré par cette méthode donne la matrice d'adjacence suivante : 
+			\\
+			\begin{center}
+			\setcounter{MaxMatrixCols}{12}
+$					\begin{pmatrix}
+			0&0&1&1&1&0&0&0&0&0&0&0\\
+			0&0&0&1&0&1&0&0&0&0&0&0\\
+			1&0&0&0&1&0&1&0&0&0&0&0\\
+			1&1&0&0&1&1&0&1&0&0&0&0\\
+			1&0&1&1&0&0&1&1&1&0&0&0\\
+			0&1&0&1&0&0&0&1&0&1&0&0\\
+			0&0&1&0&1&0&0&0&1&0&1&0\\
+			0&0&0&1&1&1&0&0&1&1&0&1\\
+			0&0&0&0&1&0&1&1&0&0&1&1\\
+			0&0&0&0&0&1&0&1&0&0&0&1\\
+			0&0&0&0&0&0&1&0&1&0&0&0\\
+			0&0&0&0&0&0&0&1&1&1&0&0		
+				\end{pmatrix}$
+			\end{center}								
 			
+
 			
-			
-			
-			
-			
+			\paragraph{graphe des zombies}
+				
+				Le graphe des zombies est similaire à celui de la carte, a une particularité prêt : il doit inclure le soleil, et traduire le fait qu'on ne peut pas aller dans le soleil. Dans la mesure ou chaque  $1$ de la matrice d'adjacence représente une liaison entre deux sommets du graphe, la solution envisagée a été de changer tous les $1$ en $0$ dans la colonne et la ligne correspondant au sommet qui contient le soleil.
+				
+				Pour ce faire, il a été décidé de rajouter une variable soleil contenant les coordonnées du soleil dans la classe carte, et une nouvelle méthode dans cette même classe pour calculer le numéro d'un sommet en fonction de ses coordonnées.
+				
+				Pour un sommet aux coordonnées $(x,y)$, la formule permettant de trouver le numéro de trouver le numéro de son sommet est la suivante :
+				
+				\begin{center}
+				 $ y+(x\times taille\_du\_graphe) - taille\_du\_graphe$
+				 \\
+				 \end{center}
+	
+				 Pour modéliser le soleil, il suffit donc de calculer le numéro de sommet du soleil avec la formule ci dessus, et de parcourir la matrice d'adjacence pour mettre une ligne de $0$ et une colonne $0$ au numéro de ligne et de colonne correspondant au numéro de sommet contenant le soleil.
+				 
+				 Ce raisonnement aboutit à l'algorithme ci dessous :\\
+				 
+				 \begin{verbatim}
+				 public void setGrapheZombie() {
+        this.grapheZombie = this.graphe.clone();
+        if (this.soleil != null) {
+            int _soleil = this.position(this.soleil.getX(), this.soleil.getY());
+            isolerSommet(_soleil, this.grapheZombie);
+
+        }
+
+    }
+				\end{verbatim}				  
+				
 			
 			\paragraph{graphe des licornes}
-			\paragraph{graphe des zombies}
 		\section{Mode manuel}
 			      \paragraph{\textcolor{blue}{Effacer la coloration}} 
       Ici le but est de colorié toutes les cases de la carte. 
