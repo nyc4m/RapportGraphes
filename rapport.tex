@@ -41,7 +41,9 @@
 			
 			Si nous choisissons le sommet 1, nous remarquons qu'il est li\'e \'a aux sommets suivants :
 			
-			\itemize{
+			\begin{itemize}
+			
+			
 				\item le sommet 3 ce qui correspond à sommet+2 soit :
 				
 				
@@ -60,31 +62,33 @@
 				
 				$sommet+tailleGraphe+1$
 				
-			}
+			\end{itemize}
 			
 			On pourrait donc conclure que pour générer le graphe il suffirait de lier chaque sommet avec les observations faites ci-dessus. Cependant, bien que lier un sommet à son $sommet+taille\times2$ soit toujours vrai, les deux autres liaisons ne le sont pas forcément. ainsi on distingue deux cas :
 			
 			
-			\itemize{
+			\begin{itemize}
+			
+			
 				\item les lignes paires
 				\item les lignes impaires
-				}
+				\end{itemize}
 				
 			Lorsque la ligne est paire, un sommet est lié à trois autres sommets :
 				
-				\itemize{
+				\begin{itemize}
 					\item $sommet+taille\times2$
 					\item $sommet+taille$
 					\item $sommet+taille-1$
-				}
+				\end{itemize}
 				
 			En revanche lorsque la ligne est impaire, les liaisons sont définie de cette manière : 
 				
-				\itemize{
+				\begin{itemize}
 					\item $sommet+taille\times2$
 					\item $sommet+taille$
 					\item $sommet+taille+1$
-					}
+					\end{itemize}
 					
 			Ces observations aboutissent au code java suivant : 
 			\\
@@ -148,8 +152,7 @@ $					\begin{pmatrix}
 				Pour un sommet aux coordonnées $(x,y)$, la formule permettant de trouver le numéro de trouver le numéro de son sommet est la suivante :
 				
 				\begin{center}
-				 $ y+(x\times taille\_du\_graphe) - taille\_du\_graphe$
-				 \\
+				 $ y+(x\times taille\_du\_graphe) - taille\_du\_graphe$			
 				 \end{center}
 	
 				 Pour modéliser le soleil, il suffit donc de calculer le numéro de sommet du soleil avec la formule ci dessus, et de parcourir la matrice d'adjacence pour mettre une ligne de $0$ et une colonne $0$ au numéro de ligne et de colonne correspondant au numéro de sommet contenant le soleil.
@@ -166,17 +169,83 @@ $					\begin{pmatrix}
         }
 
     }
-				\end{verbatim}				  
+				\end{verbatim}
+				
+				la matrice d'adjacence résultante est la suivante. On remarquera que la colonne 6 et la ligne 6 sont une suite de 0, ce qui signifie que le soleil a été placé sur le sommet 6.\\
+				\begin{center}
+				\setcounter{MaxMatrixCols}{20}
+				$\begin{pmatrix}
+			0&0&1&1&1&0&0&0&0&0&0&0&\\
+			0&0&0&1&0&0&0&0&0&0&0&0&\\
+			1&0&0&0&1&0&1&0&0&0&0&0&\\
+			1&1&0&0&1&0&0&1&0&0&0&0&\\
+			1&0&1&1&0&0&1&1&1&0&0&0&\\
+			0&0&0&0&0&0&0&0&0&0&0&0&\\
+			0&0&1&0&1&0&0&0&1&0&1&0&\\
+			0&0&0&1&1&0&0&0&1&1&0&1&\\
+			0&0&0&0&1&0&1&1&0&0&1&1&\\
+			0&0&0&0&0&0&0&1&0&0&0&1&\\
+			0&0&0&0&0&0&1&0&1&0&0&0&\\
+			0&0&0&0&0&0&0&1&1&1&0&0&
+				\end{pmatrix}$	
+				\end{center}
+											  
 				
 			
 			\paragraph{graphe des licornes}
+			
+			Une fois n'est pas coutume, le graphe des licornes est presque identique au graphe des zombies, mais il doit traduire une contrainte supplémentaire : si les licornes veulent traverser une case contenant un astéroïde, elles doivent dépenser deux points d'action.
+			
+			La manière de représenter cette contrainte a été traitée de manière très similaire à celle utilisée pour modéliser le soleil. En l'occurence, un tableau contenant les coordonnées de tous les astéroides placés a été créé. Lorsque le graphe des licornes est généré, le tableau est parcouru, et on calcule le numéro de sommet de chacun des astéroides. pour chaque numéro de ligne dans la matrice d'adjacence correspondant au sommet des astéroides, on remplace les $1$ par des $2$, ce qui indique que pour aller sur une case contenant un astéroïde, il faudra deux points d'action. en revanche, depuis une case contenant un astéroïde, aller vers une case vide ne coûtera qu'un point d'action.
+			
+			L'algorithme permettant de générer ce graphe est le suivant :\\
+			\begin{verbatim}
+			public void setGrapheLicornes() {
+        this.grapheLicornes = this.grapheZombie.clone();
+        if (this.asteroides != null) {
+            for (int i = 0; i < this.asteroides.size(); i++) {
+                //On boucle de manière à accéder à tous les asteroides.
+                //pour chaque boucle, la position de l'astéroide est calculée
+                int _asteroide = this.position(this.asteroides.get(i).getX(), this.asteroides.get(i).getY());
+                //le graphe est parcouru ligne par ligne, et tous les 1 sont changés par des deux
+                for (int j = 1; j <= this.taille * 3 * this.taille; j++) {
+                    if (this.grapheLicornes.getMatrice(_asteroide, j) == 1) {
+                        this.grapheLicornes.modifierMatrice(_asteroide, j, 2);
+                    }
+                }
+
+            }
+        }
+
+    }
+			\end{verbatim}
+			
+			La matrice d'adjacence produite par cette méthode est la suivante. On remarque que les lignes 3 et 4 comporte des $2$ et aucun $1$, des astéroides sont donc placés sur les cases 3 et 4.
+			\setcounter{MaxMatrixCols}{20}
+			\\
+			\begin{center}
+			$\begin{pmatrix}
+			0&0&1&1&1&0&0&0&0&0&0&0&\\
+			0&0&0&1&0&0&0&0&0&0&0&0&\\
+			2&0&0&0&2&0&2&0&0&0&0&0&\\
+			2&2&0&0&2&0&0&2&0&0&0&0&\\
+			1&0&1&1&0&0&1&1&1&0&0&0&\\
+			0&0&0&0&0&0&0&0&0&0&0&0&\\
+			0&0&1&0&1&0&0&0&1&0&1&0&\\
+			0&0&0&1&1&0&0&0&1&1&0&1&\\
+			0&0&0&0&1&0&1&1&0&0&1&1&\\
+			0&0&0&0&0&0&0&1&0&0&0&1&\\
+			0&0&0&0&0&0&1&0&1&0&0&0&\\
+			0&0&0&0&0&0&0&1&1&1&0&0&
+			\end{pmatrix}$	
+			\end{center}
+			
 		\section{Mode manuel}
 			      \paragraph{\textcolor{blue}{Effacer la coloration}} 
-      Ici le but est de colorié toutes les cases de la carte. 
+    Pour effacer la coloration de la case, il suffit de colorier toutes les cases en blanc. 
+    A cet effet, on réalise une boucle qui parcourant toutes les lignes  et une autre parcourant toutes les colonnes. A chaque passage de la boucle on crée un nouveau couple qui correspond à une case que l'on colorie en blanc. %la remarque sur le fait qu'il y a 3x plus de lignes que de colonne est pour moi inutile (on peut en débattre ^^)      
        
-    Pour cela on fait une boucle qui parcoure toute les lignes  et une autre qui parcoure toutes les colonnes. A chaque passage de la boucle on créer un nouveau couple qui correspond à une case que l'on colorie en blanc (à noter qu'il y a 3x plus de lignes que de colonne.      
-       
-      Nous pouvons observer le résultat de cette fonction avec l'image ci-dessous, ici à terme d'exemple on colorira les cases en rouge. 
+      Nous pouvons observer le résultat de cette fonction avec l'image ci-dessous, ici à titre d'exemple la carte a été coloriée en rouge. 
        
       \begin{center}  
           \includegraphics[scale=0.30]{Images/effaceColoration.png}
@@ -184,18 +253,25 @@ $					\begin{pmatrix}
        
        
       \paragraph{\textcolor{blue} {couleurs et distances}} 
-      Ici le but est de colorié les cases ou le joueur peut se déplacer. 
-      Pour cela on va  se servir d'un Dijkstra qui va calculer la distance des sommets autour du vaisseau , ensuite on va colorier les cases de distance de 1 en vert et les cases de distances 2 en jaune. A noter que pour cela nous auront besoin d'une fonction qui transforme un sommet en couple. 
+      Ici le but est de colorier les cases ou le joueur peut se déplacer. 
+      Pour cela on va  se servir de l'algorithme de Dijkstra, qui va calculer la distance des sommets autour du vaisseau , ensuite on va colorier les cases de distance 1 en vert et les cases de distances 2 en jaune. A noter que pour cela nous auront besoin d'une méthode qui transforme un sommet en couple. 
        
-        \begin{center} 
+         
+       
+      
+			\paragraph{\textcolor{blue}{Mise en place de la coloration}}
+			Pour que les cases sur lesquelles le joueur peut se déplacer s'affiche avec la couleur adéquat : 
+			\begin{itemize}
+				\item Vert pour une case nécessitant un point d'action
+				\item Rouge pour une case nécessitant deux points d'action
+			\end{itemize}
+			il suffit de lire le tableau des distances généré par l'algorithme de Dijkstra. Chaque indice correspond à un sommet, par conséquent il faut colorier chaque sommet en fonction de sa valeur associée dans le tableau des distances. Ainsi, tous les sommets à 1 de distance seront coloriés en vert, et tous les sommets à 2 de distance seront coloriés en Jaune.
+			\begin{center} 
       
           \includegraphics[scale=0.30]{Images/colarationMouvement.png} 
      
-      \end{center} 
-       
-      
-			\paragraph{couleurs et distances}
-			\paragraph{Mise en place de la coloration}
+      \end{center}
+			
 			
 			
 	\chapter{mode automatique}
