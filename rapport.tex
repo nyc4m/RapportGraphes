@@ -279,13 +279,19 @@ $					\begin{pmatrix}
 			\paragraph{\textcolor{blue}{Mouvement des licornes}}
 			Le principe est ici de calculer un chemin gr\^ace \`a l'algorithme de dijkstra. Pour ce faire, on utilise une m\'ethode r\'eccurcive qui va lire le tableau des ant\'ec\'edents. Initialementm l'algorithme impl\'ement\'e calcule le chemin le plus court pour parcourir tout le graphe (soit du premier au dernier sommet). Pour qu'un chemin soit g\'en\'er\'e d'un point de d\'epart jusqu'a un point d'arriv\'ee, il suffit de lire le tableau des ant\'ec\'edents jusqu'a trouver le sommet sans ant\'ec\'edent (Le sommet sans ant\'ec\'edent a, dans les faits, -1 comme ant\'ec\'edent). une fois le chemin trouv\'e il est stock\'e dans un tableau, que les licornes vont lire \`a chaque tour gr\^ace \`a un compteur.
 			\paragraph{\textcolor{blue}{Mouvement des zombies}}
-			Le principe ici est de recalculer un Dijkstra à chaque itération étant donné que le vaisseau des licornes est en mouvement.La fonction permettant de construire un chemin est ici réutilisée.
+			La solution retenue pour que les zombies ce dirigent vers les licornes en passant par le plus court chemin a \'et\'e de calculer le chemin le plus court \`a chaque tour gr\^ace \`a l'algorithme de Dijkstra. Une autre solution avait un temps \'et\'e envisag\'ee, celle d'utiliser l'algorithme de floyd Warshall, pour stocker tous les chemins les plus courts entre tous les couples de sommets du graphe des zombies. N\'enmoins, le nombre de chemin a calculer devenait rapidement cons\'equent, et il fallait jusqu'\`a une minute pour voir apparaitre la carte du jeu. Pour cette raison il a sembl\'e plus judicieux de calculer le chemin a chaque tour.
 			\paragraph{\textcolor{blue}{Les shadocks}}
-			Le principe ici est de calculer un Dijkstra de la planète Shadock puis de stocker les sommet à 3 ou moins de distances dans un ArrayList.Puis on sélectionne des sommets aléatoirement si le sommet et à moins de 1 de distances qui sera déterminée par un Dijkstra à partir du vaisseau alors celui ci se déplace.
+			Le trajet des shadocks se calcule en deux temps :
+				
+			\begin{itemize}
+				\item On calcule le plus court chemin a partir de la plan\'ete shadock, et on stocke tous les sommet a 3 de distances ou moins dans un arraylist.
+				\item A chaque tour des shadocks, on calcule le chemin le plus court depuis leur position. il suffit ensuite de d\'eplacer le vaisseau shadock sur une a 1 de distance de leur vaisseau, et a maximum 3 de distance de leur plan\`te (la comparaison est possible gr\^ace \`a l'ArrayList \'evoqu\'e pr\'ec\'edemment.
+			\end{itemize}
+
 			\paragraph{\textcolor{blue}{Optimisation des gibis}}
-			Le principe ici est de faire en sorte que le vaisseau zombie ne se déplace sur une case situé à moins de 2 du vaisseau Shadock.
-			Dans un premier temps on va servir de la fonction "AntiShadock" permettant de stocker à partir d'un dijkstra tout les sommets de distance égale à 2 ou inférieur.
-			Puis dans un second temps on peut grâce à la fonction plus court chemin que l'on surcharge d'un paramètre ArrayList,isolés les sommets de ce fait il sera impossible de licorne d'y aller.
+			Une fa\,con de r\'ealiser cette optimisation est de rep\'erer toutes les cases sur lesquelles le vaisseau shadock peut se d\'eplacer durant un tour donn\'e, puis d'interdire ces sommets aux licornes.
+			Dans un premier temps on va servir de la fonction "AntiShadock" permettant de stocker à partir de l'algorithme de dijkstra tous les sommets de distance inf\'erieure ou \'egale \`a 2.
+			Puis dans un second temps on peut grâce à la fonction plus court chemin que l'on surcharge d'un paramètre ArrayList, isoler les sommets de ce fait il sera impossible pour les licorne d'y aller.
 			\paragraph{\textcolor{blue}{Navigation suicidaire}}
 			Le principe ici est de faire en sorte que le vaisseau licorne ne se jette pas sur le vaisseau des zombies.
 			Pour ce faire il suffit de reprendre le principe d'isolation du sommet su soleil.
