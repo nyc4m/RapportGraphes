@@ -21,12 +21,55 @@
 
 
 \begin{document}
-	\maketitle 
+	\begin{titlepage}
 	
-	\chapter{Generation des graphes et mode manuel}
+		\begin{center}
+			
+			\hrule\\[1cm]
+			\begin{Huge}
+				\textbf{PROJET DE GRAPHES}
+			\end{Huge}\\[1cm]
+			\hrule\\[1cm]
+			
+			\includegraphics[scale=0.5]{Images/iut.png}\\[1cm]
+			
+			\includegraphics[scale=0.30]{Images/fondMenu.png}\\[2cm]
+			\begin{center}
+			\begin{Large}
+				Baptiste Prunot\\
+				Amaury Sauvage\\
+				Raphael Pinto\\
+				Hugo Ouertani\\
+				Cyril Vandenbossche\\
+				\end{Large}\\[2cm]
+				
+				
+					\begin{flushright}
+					\today
+					\end{flushright}
+					
+				
+				
+				
+			
+			\end{center}
+		\end{center}
+		
+	\end{titlepage}	
+	
+	\setcounter{tocdepth}{4}
+	\tableofcontents
+	
+	\begin{center}
+	\\[5cm]
+	\includegraphics[scale=1]{Images/Licornes.jpg}
+	\end{center}
+	
+	
+	\chapter*{Generation des graphes et mode manuel}
 		\section{generation des graphes}
 			
-			\paragraph{\textcolor{blue}{graphe de la carte}}
+			\paragraph{\textcolor{blue}{Graphe de la carte}}
 			Le graphe de la carte est la base sur laquelle vont \^etre g\'en\'er\'es le graphe des zombies, et celui des licornes.
 			
 			le graphe a la particularit\'e de repr\'esenter une carte avec des cases hexagonales. De ce fait, sa g\'en\'eration a entrain\'e quelques particularit\'es.
@@ -143,7 +186,7 @@ $					\begin{pmatrix}
 			
 
 			
-			\paragraph{graphe des zombies}
+			\paragraph{\textcolor{blue}{Graphe des zombies}}
 				
 				Le graphe des zombies est similaire à celui de la carte, a une particularité prêt : il doit inclure le soleil, et traduire le fait qu'on ne peut pas aller dans le soleil. Dans la mesure ou chaque  $1$ de la matrice d'adjacence représente une liaison entre deux sommets du graphe, la solution envisagée a été de changer tous les $1$ en $0$ dans la colonne et la ligne correspondant au sommet qui contient le soleil.
 				
@@ -192,7 +235,7 @@ $					\begin{pmatrix}
 											  
 				
 			
-			\paragraph{graphe des licornes}
+			\paragraph{\textcolor{blue}{Graphe des licornes}}
 			
 			Une fois n'est pas coutume, le graphe des licornes est presque identique au graphe des zombies, mais il doit traduire une contrainte supplémentaire : si les licornes veulent traverser une case contenant un astéroïde, elles doivent dépenser deux points d'action.
 			
@@ -245,14 +288,14 @@ $					\begin{pmatrix}
     Pour effacer la coloration de la case, il suffit de colorier toutes les cases en blanc. 
     A cet effet, on réalise une boucle qui parcourant toutes les lignes  et une autre parcourant toutes les colonnes. A chaque passage de la boucle on crée un nouveau couple qui correspond à une case que l'on colorie en blanc. %la remarque sur le fait qu'il y a 3x plus de lignes que de colonne est pour moi inutile (on peut en débattre ^^)      
        
-      Nous pouvons observer le résultat de cette fonction avec l'image ci-dessous, ici à titre d'exemple la carte a été coloriée en rouge. 
+      Nous pouvons observer le résultat de cette fonction avec l'image ci-dessous, ici à titre d'exemple la carte a été coloriée en rouge.
        
       \begin{center}  
           \includegraphics[scale=0.30]{Images/effaceColoration.png}
       \end{center} 
        
        
-      \paragraph{\textcolor{blue} {couleurs et distances}} 
+      \paragraph{\textcolor{blue} {Couleurs et distances}} 
       Ici le but est de colorier les cases ou le joueur peut se déplacer. 
       Pour cela on va  se servir de l'algorithme de Dijkstra, qui va calculer la distance des sommets autour du vaisseau , ensuite on va colorier les cases de distance 1 en vert et les cases de distances 2 en jaune. A noter que pour cela nous auront besoin d'une méthode qui transforme un sommet en couple. 
        
@@ -263,18 +306,18 @@ $					\begin{pmatrix}
 			Pour que les cases sur lesquelles le joueur peut se déplacer s'affiche avec la couleur adéquat : 
 			\begin{itemize}
 				\item Vert pour une case nécessitant un point d'action
-				\item Rouge pour une case nécessitant deux points d'action
+				\item Jaune pour une case nécessitant deux points d'action
 			\end{itemize}
-			il suffit de lire le tableau des distances généré par l'algorithme de Dijkstra. Chaque indice correspond à un sommet, par conséquent il faut colorier chaque sommet en fonction de sa valeur associée dans le tableau des distances. Ainsi, tous les sommets à 1 de distance seront coloriés en vert, et tous les sommets à 2 de distance seront coloriés en Jaune.
+			il suffit de lire le tableau des distances généré par l'algorithme de Dijkstra. Chaque indice correspond à un sommet, par conséquent il faut colorier chaque sommet en fonction de sa valeur associée dans le tableau des distances. Ainsi, tous les sommets à 1 de distance seront coloriés en vert, et tous les sommets à 2 de distance seront coloriés en Jaune.\\[2cm]
 			\begin{center} 
       
-          \includegraphics[scale=0.30]{Images/colarationMouvement.png} 
+          \includegraphics[scale=0.75]{Images/Coloration.png} 
      
       \end{center}
 			
 			
 			
-	\chapter{mode automatique}
+	\chapter*{Mode automatique}
 		\section{Les races de base}
 			\paragraph{\textcolor{blue}{Mouvement des licornes}}
 			Le principe est ici de calculer un chemin gr\^ace \`a l'algorithme de dijkstra. Pour ce faire, on utilise une m\'ethode r\'eccurcive qui va lire le tableau des ant\'ec\'edents. Initialementm l'algorithme impl\'ement\'e calcule le chemin le plus court pour parcourir tout le graphe (soit du premier au dernier sommet). Pour qu'un chemin soit g\'en\'er\'e d'un point de d\'epart jusqu'a un point d'arriv\'ee, il suffit de lire le tableau des ant\'ec\'edents jusqu'a trouver le sommet sans ant\'ec\'edent (Le sommet sans ant\'ec\'edent a, dans les faits, -1 comme ant\'ec\'edent). une fois le chemin trouv\'e il est stock\'e dans un tableau, que les licornes vont lire \`a chaque tour gr\^ace \`a un compteur.
@@ -297,6 +340,5 @@ $					\begin{pmatrix}
 			Pour ce faire il suffit de reprendre le principe d'isolation du sommet su soleil.
 			Ainsi le vaisseau de licorne n'ira pas sur la case vaisseau zombie en automatique et sera également géré dans le mode manuel
 			\paragraph{\textcolor{blue}{Coloniser plusieurs planètes}}
-	\setcounter{tocdepth}{4}
-	\tableofcontents
+	
 \end{document}
