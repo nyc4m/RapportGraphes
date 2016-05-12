@@ -312,8 +312,6 @@ $					\begin{pmatrix}
 			\begin{center} 
       
           \includegraphics[scale=0.75]{Images/Coloration.png} 
-          \\[2cm]
-          \includegraphics[scale=1]{Images/Licornes.jpg}
      
       \end{center}
 			
@@ -322,7 +320,7 @@ $					\begin{pmatrix}
 	\chapter*{Mode automatique}
 		\section{Les races de base}
 			\paragraph{\textcolor{blue}{Mouvement des licornes}}
-			Le principe est ici de calculer un chemin gr\^ace \`a l'algorithme de dijkstra. Pour ce faire, on utilise une m\'ethode r\'eccurcive qui va lire le tableau des ant\'ec\'edents. Initialementm l'algorithme impl\'ement\'e calcule le chemin le plus court pour parcourir tout le graphe (soit du premier au dernier sommet). Pour qu'un chemin soit g\'en\'er\'e d'un point de d\'epart jusqu'a un point d'arriv\'ee, il suffit de lire le tableau des ant\'ec\'edents jusqu'a trouver le sommet sans ant\'ec\'edent (Le sommet sans ant\'ec\'edent a, dans les faits, -1 comme ant\'ec\'edent). une fois le chemin trouv\'e il est stock\'e dans un tableau, que les licornes vont lire \`a chaque tour gr\^ace \`a un compteur.
+			Le principe est ici de calculer un chemin gr\^ace \`a l'algorithme de dijkstra. Pour ce faire, on utilise une m\'ethode r\'eccurcive qui va lire le tableau des ant\'ec\'edents. Initialement l'algorithme impl\'ement\'e calcule le chemin le plus court pour parcourir tout le graphe (soit du premier au dernier sommet). Pour qu'un chemin soit g\'en\'er\'e d'un point de d\'epart jusqu'a un point d'arriv\'ee, il suffit de lire le tableau des ant\'ec\'edents jusqu'a trouver le sommet sans ant\'ec\'edent (Le sommet sans ant\'ec\'edent a, dans les faits, -1 comme ant\'ec\'edent). une fois le chemin trouv\'e il est stock\'e dans un tableau, que les licornes vont lire \`a chaque tour gr\^ace \`a un compteur.
 			\paragraph{\textcolor{blue}{Mouvement des zombies}}
 			La solution retenue pour que les zombies ce dirigent vers les licornes en passant par le plus court chemin a \'et\'e de calculer le chemin le plus court \`a chaque tour gr\^ace \`a l'algorithme de Dijkstra. Une autre solution avait un temps \'et\'e envisag\'ee, celle d'utiliser l'algorithme de floyd Warshall, pour stocker tous les chemins les plus courts entre tous les couples de sommets du graphe des zombies. N\'enmoins, le nombre de chemin a calculer devenait rapidement cons\'equent, et il fallait jusqu'\`a une minute pour voir apparaitre la carte du jeu. Pour cette raison il a sembl\'e plus judicieux de calculer le chemin a chaque tour.
 			\paragraph{\textcolor{blue}{Les shadocks}}
@@ -341,6 +339,12 @@ $					\begin{pmatrix}
 			Le principe ici est de faire en sorte que le vaisseau licorne ne se jette pas sur le vaisseau des zombies.
 			Pour ce faire il suffit de reprendre le principe d'isolation du sommet su soleil.
 			Ainsi le vaisseau de licorne n'ira pas sur la case vaisseau zombie en automatique et sera également géré dans le mode manuel
+			
+			\begin{center}  
+          \includegraphics[scale=0.30]{Images/isoleZombie.png}
+      \end{center} 
+       
+			
 			\paragraph{\textcolor{blue}{Coloniser plusieurs planètes}}
 	
 \end{document}
