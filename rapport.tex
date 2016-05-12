@@ -283,6 +283,9 @@ $					\begin{pmatrix}
 			\paragraph{\textcolor{blue}{Les shadocks}}
 			Le principe ici est de calculer un Dijkstra de la planète Shadock puis de stocker les sommet à 3 ou moins de distances dans un ArrayList.Puis on sélectionne des sommets aléatoirement si le sommet et à moins de 1 de distances qui sera déterminée par un Dijkstra à partir du vaisseau alors celui ci se déplace.
 			\paragraph{\textcolor{blue}{Optimisation des gibis}}
+			Le principe ici est de faire en sorte que le vaisseau zombie ne se déplace sur une case situé à moins de 2 du vaisseau Shadock.
+			Dans un premier temps on va servir de la fonction "AntiShadock" permettant de stocker à partir d'un dijkstra tout les sommets de distance égale à 2 ou inférieur.
+			Puis dans un second temps on peut grâce à la fonction plus court chemin que l'on surcharge d'un paramètre ArrayList,isolés les sommets de ce fait il sera impossible de licorne d'y aller.
 			\paragraph{\textcolor{blue}{Navigation suicidaire}}
 			Le principe ici est de faire en sorte que le vaisseau licorne ne se jette pas sur le vaisseau des zombies.
 			Pour ce faire il suffit de reprendre le principe d'isolation du sommet su soleil.
