@@ -277,7 +277,7 @@ $					\begin{pmatrix}
 	\chapter{mode automatique}
 		\section{Les races de base}
 			\paragraph{\textcolor{blue}{Mouvement des licornes}}
-			Le principe ici est de calculer un Dijkstra puis grâce à une fonction on va pouvoir construire un chemin en se basant sur les antécédents de la planète.
+			Le principe est ici de calculer un chemin gr\^ace \`a l'algorithme de dijkstra. Pour ce faire, on utilise une m\'ethode r\'eccurcive qui va lire le tableau des ant\'ec\'edents. Initialementm l'algorithme impl\'ement\'e calcule le chemin le plus court pour parcourir tout le graphe (soit du premier au dernier sommet). Pour qu'un chemin soit g\'en\'er\'e d'un point de d\'epart jusqu'a un point d'arriv\'ee, il suffit de lire le tableau des ant\'ec\'edents jusqu'a trouver le sommet sans ant\'ec\'edent (Le sommet sans ant\'ec\'edent a, dans les faits, -1 comme ant\'c\'edent). une fois le chemin trouv\'e il est stock\'e dans un tableau, que les licornes vont lire \`a chaque tour gr\^ace \`a un compteur.
 			\paragraph{\textcolor{blue}{Mouvement des zombies}}
 			Le principe ici est de recalculer un Dijkstra à chaque itération étant donné que le vaisseau des licornes est en mouvement.La fonction permettant de construire un chemin est ici réutilisée.
 			\paragraph{\textcolor{blue}{Les shadocks}}
