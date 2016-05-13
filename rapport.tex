@@ -74,7 +74,7 @@
 			
 			\end{center}
 			
-			Si nous choisissons le sommet 1, nous remarquons qu'il est li\'e \'a aux sommets suivants :
+			Si nous choisissons le sommet 1, nous remarquons qu'il est li\'e aux sommets suivants :
 			
 			\begin{itemize}
 			
@@ -109,7 +109,7 @@
 				\item les lignes impaires
 				\end{itemize}
 				
-			Lorsque la ligne est paire, un sommet est lié à trois autres sommets :
+			Lorsque la ligne est paire, un sommet est lié à trois sommets :
 				
 				\begin{itemize}
 					\item $sommet+taille\times2$
@@ -117,7 +117,7 @@
 					\item $sommet+taille-1$
 				\end{itemize}
 				
-			En revanche lorsque la ligne est impaire, les liaisons sont définie de cette manière : 
+			En revanche lorsque la ligne est impaire, les liaisons sont définies de cette manière : 
 				
 				\begin{itemize}
 					\item $sommet+taille\times2$
@@ -174,7 +174,7 @@ $					\begin{pmatrix}
 			0&0&0&0&0&0&1&0&1&0&0&0\\
 			0&0&0&0&0&0&0&1&1&1&0&0		
 				\end{pmatrix}$
-			\end{center}								
+			\end{center}\\								
 			
 
 			
@@ -184,13 +184,13 @@ $					\begin{pmatrix}
 				
 				Pour ce faire, il a été décidé de rajouter une variable soleil contenant les coordonnées du soleil dans la classe carte, et une nouvelle méthode dans cette même classe pour calculer le numéro d'un sommet en fonction de ses coordonnées.
 				
-				Pour un sommet aux coordonnées $(x,y)$, la formule permettant de trouver le numéro de trouver le numéro de son sommet est la suivante :
+				Pour un sommet aux coordonnées $(x,y)$, la formule permettant de trouver le numéro est la suivante :
 				
 				\begin{center}
 				 $ y+(x\times taille\_du\_graphe) - taille\_du\_graphe$			
 				 \end{center}
 	
-				 Pour modéliser le soleil, il suffit donc de calculer le numéro de sommet du soleil avec la formule ci dessus, et de parcourir la matrice d'adjacence pour mettre une ligne de $0$ et une colonne $0$ au numéro de ligne et de colonne correspondant au numéro de sommet contenant le soleil.
+				 Pour modéliser le soleil, il suffit donc de calculer le numéro de sommet du soleil avec la formule ci dessus, et de parcourir la matrice d'adjacence pour mettre une ligne de $0$ et une colonne de $0$ au numéro de ligne et de colonne correspondant au numéro de sommet contenant le soleil. Représenter le soleil de cette manière sur le graphe implique qu'il n'est pas possible d'aller sur le soleil, mais également qu'on ne peut aller nulle part de puis le soleil.
 				 
 				 Ce raisonnement aboutit à l'algorithme ci dessous :\\
 				 
@@ -229,7 +229,7 @@ $					\begin{pmatrix}
 			
 			\paragraph{\textcolor{purple}{Graphe des licornes}}
 			
-			Une fois n'est pas coutume, le graphe des licornes est presque identique au graphe des zombies, mais il doit traduire une contrainte supplémentaire : si les licornes veulent traverser une case contenant un astéroïde, elles doivent dépenser deux points d'action.
+			Une fois n'est pas coutume, le graphe des licornes est presque identique au graphe de la carte, et par extension au graphe des zombies, mais il doit traduire une contrainte supplémentaire : si les licornes veulent traverser une case contenant un champs d'astéroïdes, elles doivent dépenser deux points d'action.
 			
 			La manière de représenter cette contrainte a été traitée de manière très similaire à celle utilisée pour modéliser le soleil. En l'occurence, un tableau contenant les coordonnées de tous les astéroides placés a été créé. Lorsque le graphe des licornes est généré, le tableau est parcouru, et on calcule le numéro de sommet de chacun des astéroides. pour chaque numéro de ligne dans la matrice d'adjacence correspondant au sommet des astéroides, on remplace les $1$ par des $2$, ce qui indique que pour aller sur une case contenant un astéroïde, il faudra deux points d'action. en revanche, depuis une case contenant un astéroïde, aller vers une case vide ne coûtera qu'un point d'action.
 			
@@ -278,7 +278,7 @@ $					\begin{pmatrix}
 		\section*{\textcolor{Plum}{Mode Manuel}}
 			      \paragraph{\textcolor{purple}{Effacer la coloration}} 
     Pour effacer la coloration de la case, il suffit de colorier toutes les cases en blanc. 
-    A cet effet, on réalise une boucle qui parcourant toutes les lignes  et une autre parcourant toutes les colonnes. A chaque passage de la boucle on crée un nouveau couple qui correspond à une case que l'on colorie en blanc. %la remarque sur le fait qu'il y a 3x plus de lignes que de colonne est pour moi inutile (on peut en débattre ^^)      
+    A cet effet, on réalise une boucle parcourant toutes les lignes  et une autre parcourant toutes les colonnes. A chaque passage de la boucle on crée un nouveau couple qui correspond à une case que l'on colorie en blanc. %la remarque sur le fait qu'il y a 3x plus de lignes que de colonne est pour moi inutile (on peut en débattre ^^)      
        
       Nous pouvons observer le résultat de cette fonction avec l'image ci-dessous, ici à titre d'exemple la carte a été coloriée en rouge.
        
@@ -289,12 +289,12 @@ $					\begin{pmatrix}
        
       \paragraph{\textcolor{purple} {Couleurs et distances}} 
       Ici le but est de colorier les cases ou le joueur peut se déplacer. 
-      Pour cela on va  se servir de l'algorithme de Dijkstra, qui va calculer la distance des sommets autour du vaisseau , ensuite on va colorier les cases de distance 1 en vert et les cases de distances 2 en jaune. A noter que pour cela nous auront besoin d'une méthode qui transforme un sommet en couple. 
-       
-         
+      Pour cela on va  se servir de l'algorithme de Dijkstra, qui va calculer la distance minimum pour aller à chacun des sommets depuis la case du vaisseau du joueur. On va ensuite colorier les cases de distance 1 en vert et les cases de distances 2 en jaune.
        
       
 			\paragraph{\textcolor{purple}{Mise en place de la coloration}}
+			
+			
 			Pour que les cases sur lesquelles le joueur peut se déplacer s'affiche avec la couleur adéquat : 
 			\begin{itemize}
 				\item Vert pour une case nécessitant un point d'action
@@ -304,10 +304,19 @@ $					\begin{pmatrix}
 			\begin{center} 
       
           \includegraphics[scale=0.75]{Images/Coloration.png} 
-          \\[2cm]
-          \includegraphics[scale=1]{Images/Licornes.jpg}
      
       \end{center}
+      
+      \paragraph{\textcolor{purple}{Vérifier la validité d'un déplacement}}
+      Pour limiter le déplacement du joueur aux cases coloriées lors de la sélection de son vaisseau, il faut vérifier que la seconde case qu'il choisi (la première étant le vaisseau) est à une distance de 1, ou de 2.
+      Pour répondre à cette contrainte, le problème a été inversé. Lors de la sélection de la deuxième case, on ne vérifie pas que la nouvelle case est à une distance de 1 ou 2, mais on vérifie que le vaisseau est à une distance de 1 ou 2 de la case sélectionnée. Cette manière de procéder a été choisie pour exploiter la variable \emph{caseSelectionee} de la classe carte, et pour ne pas modifier de manière trop profonde la méthode \emph{selectionCase}.
+      
+      \paragraph{\textcolor{purple}{Implémentation de l'algorithme de Dijkstra}}
+      La réalisation du projet de graphe repose en grande partie sur l'algorithme de Dijsktra, il est par conséquent nécessaire de donner quelques détails sur son implémentation. 
+      Le fonctionnement de l'algorithme repose sur l'utilisation de trois tableaux. Il a été décidé d'utiliser des ArrayLists, qui ont l'avantage d'avoir une limite dynamique. Un troisième tableau a été ajouté, il contient le numéro de tous les sommets, son utilité s'est limité aux tests d'exécution de l'algorithme.
+      Lors de l'initialisation des tableaux, l'indice 0 est rempli avec une valeur fictive ($+\infty$ pour le tableau des distances, True pour le tableau de booléen, -1 pour les antécédents). Cela a pour avantage de pouvoir faire correspondre l'indice de chaque tableau avec un numéro de sommet. Les valeurs à l'indice 0 ont été choisie pour ne pas gêner le déroulement de l'algorithme. Représenter $+\infty$ s'est traduit par la création d'une fonction \emph{infini} qui renvoie la somme de tous les poids des arêtes+1.
+      Pour déterminer si tous les sommets ont été traité au cours de l'exécution de l'algorithme, une fonction \emph{listeTerminee} a été créée. Elle lit le tableau de booléen et renvoie false si un élément dans ce tableau est à false.
+       
 			
 			
 			
@@ -317,6 +326,8 @@ $					\begin{pmatrix}
 			Le principe est ici de calculer un chemin gr\^ace \`a l'algorithme de dijkstra. Pour ce faire, on utilise une m\'ethode r\'eccurcive qui va lire le tableau des ant\'ec\'edents. Initialementm l'algorithme impl\'ement\'e calcule le chemin le plus court pour parcourir tout le graphe (soit du premier au dernier sommet). Pour qu'un chemin soit g\'en\'er\'e d'un point de d\'epart jusqu'a un point d'arriv\'ee, il suffit de lire le tableau des ant\'ec\'edents jusqu'a trouver le sommet sans ant\'ec\'edent (Le sommet sans ant\'ec\'edent a, dans les faits, -1 comme ant\'ec\'edent). une fois le chemin trouv\'e il est stock\'e dans un tableau, que les licornes vont lire \`a chaque tour gr\^ace \`a un compteur.
 			\paragraph{\textcolor{purple}{Mouvement des zombies}}
 			La solution retenue pour que les zombies ce dirigent vers les licornes en passant par le plus court chemin a \'et\'e de calculer le chemin le plus court \`a chaque tour gr\^ace \`a l'algorithme de Dijkstra. Une autre solution avait un temps \'et\'e envisag\'ee, celle d'utiliser l'algorithme de floyd Warshall, pour stocker tous les chemins les plus courts entre tous les couples de sommets du graphe des zombies. N\'enmoins, le nombre de chemin a calculer devenait rapidement cons\'equent, et il fallait jusqu'\`a une minute pour voir apparaitre la carte du jeu. Pour cette raison il a sembl\'e plus judicieux de calculer le chemin a chaque tour.
+			
+	\section*{\textcolor{Plum}{Les shadocks et les gibis}}			
 			\paragraph{\textcolor{purple}{Les shadocks}}
 			Le trajet des shadocks se calcule en deux temps :
 				
@@ -326,12 +337,12 @@ $					\begin{pmatrix}
 			\end{itemize}
 
 			\paragraph{\textcolor{purple}{Optimisation des gibis}}
-			Une fa\,con de r\'ealiser cette optimisation est de rep\'erer toutes les cases sur lesquelles le vaisseau shadock peut se d\'eplacer durant un tour donn\'e, puis d'interdire ces sommets aux licornes.
+			Une façcon de ré aliser cette optimisation est de rep\'erer toutes les cases sur lesquelles le vaisseau shadock peut se d\'eplacer durant un tour donn\'e, puis d'interdire ces sommets aux licornes.
 			Dans un premier temps on va servir de la fonction "AntiShadock" permettant de stocker à partir de l'algorithme de dijkstra tous les sommets de distance inf\'erieure ou \'egale \`a 2.
 			Puis dans un second temps on peut grâce à la fonction plus court chemin que l'on surcharge d'un paramètre ArrayList, isoler les sommets de ce fait il sera impossible pour les licorne d'y aller.
 			\paragraph{\textcolor{purple}{Navigation suicidaire}}
 			Le principe ici est de faire en sorte que le vaisseau licorne ne se jette pas sur le vaisseau des zombies.
-			Pour ce faire il suffit de reprendre le principe d'isolation du sommet su soleil, ce qui conduit à traiter le vaisseau des zombies comme un "soleil mouvant". Il n'y a néanmoins pas de modification de graphes, il suffit simplement de marquer à l'initialisation de l'algorithme de Dijkstra le sommet sur lequel est positionné le vaisseau des zombie comme déjà traité. Le résultat est que la distance pour aller à ce sommet restera à $+\infty$
+			Pour ce faire il suffit de reprendre le principe d'isolation du sommet su soleil, ce qui conduit à traiter le vaisseau des zombies comme un "soleil mouvant". Il n'y a néanmoins pas de modification de graphes, il suffit simplement de marquer à l'initialisation de l'algorithme de Dijkstra le sommet sur lequel est positionné le vaisseau des zombie comme déjà traité. Le résultat est que la distance pour aller à ce sommet restera à $+\infty$, c'est à dire inaccessible pour les licornes quelque soit le mode de jeu.
 			\paragraph{\textcolor{purple}{Coloniser plusieurs planètes}}
 			La possibilité pour les licornes de coloniser plusieurs planètes, et notamment de se diriger vers la plus proche, a été rendu possible grâce a un ArrayList, ainsi que le tableau des distances, et celui des antécédents donnés par l'exécution de l'algorithme de Dijkstra.
 			En début de partie, chaque fois qu'une planète est ajoutée sur la carte, ces coordonnées sont stockées dans un ArrayList. A chaque tour des licornes, l'algorithme de Dijkstra est exécuté, et les coordonnées des planètes vont être converti en numéro de sommet. Grâce à ces numéros, il suffira de lire pour chaque sommet la distance la plus courte, et construire un chemin vers la planète la plus proche.
