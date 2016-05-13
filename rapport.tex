@@ -4,20 +4,12 @@
 \usepackage[francais]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}
-\usepackage{color}
+\usepackage[dvipsnames]{xcolor}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{lmodern}
 \usepackage[top=2cm, bottom=2cm, right=2cm, left=2cm]{geometry}
 \usepackage{verbatim}
-
-\title{\Huge{Rapport du projet de graphes}}
-\author{Baptiste Prunot
-\and Amaury Sauvage
-\and Raphael Pinto
-\and Hugo Ouertani
-\and Cyril Vandenbosshe}
-\date{\today}
 
 
 \begin{document}
@@ -66,10 +58,10 @@
 	\end{center}
 	
 	
-	\chapter*{Generation des graphes et mode manuel}
-		\section{generation des graphes}
+	\chapter*{\textcolor{Fuchsia}{Génération des graphes et mode manuel}}
+		\section*{\textcolor{Plum}{Génération des graphes}}
 			
-			\paragraph{\textcolor{blue}{Graphe de la carte}}
+			\paragraph{\textcolor{purple}{Graphe de la carte}}
 			Le graphe de la carte est la base sur laquelle vont \^etre g\'en\'er\'es le graphe des zombies, et celui des licornes.
 			
 			le graphe a la particularit\'e de repr\'esenter une carte avec des cases hexagonales. De ce fait, sa g\'en\'eration a entrain\'e quelques particularit\'es.
@@ -167,7 +159,7 @@
 			Un graphe de taille 2 généré par cette méthode donne la matrice d'adjacence suivante : 
 			\\
 			\begin{center}
-			\setcounter{MaxMatrixCols}{12}
+			\setcounter{MaxMatrixCols}{13}
 $					\begin{pmatrix}
 			0&0&1&1&1&0&0&0&0&0&0&0\\
 			0&0&0&1&0&1&0&0&0&0&0&0\\
@@ -186,7 +178,7 @@ $					\begin{pmatrix}
 			
 
 			
-			\paragraph{\textcolor{blue}{Graphe des zombies}}
+			\paragraph{\textcolor{purple}{Graphe des zombies}}
 				
 				Le graphe des zombies est similaire à celui de la carte, a une particularité prêt : il doit inclure le soleil, et traduire le fait qu'on ne peut pas aller dans le soleil. Dans la mesure ou chaque  $1$ de la matrice d'adjacence représente une liaison entre deux sommets du graphe, la solution envisagée a été de changer tous les $1$ en $0$ dans la colonne et la ligne correspondant au sommet qui contient le soleil.
 				
@@ -216,7 +208,7 @@ $					\begin{pmatrix}
 				
 				la matrice d'adjacence résultante est la suivante. On remarquera que la colonne 6 et la ligne 6 sont une suite de 0, ce qui signifie que le soleil a été placé sur le sommet 6.\\
 				\begin{center}
-				\setcounter{MaxMatrixCols}{20}
+				\setcounter{MaxMatrixCols}{13}
 				$\begin{pmatrix}
 			0&0&1&1&1&0&0&0&0&0&0&0&\\
 			0&0&0&1&0&0&0&0&0&0&0&0&\\
@@ -235,7 +227,7 @@ $					\begin{pmatrix}
 											  
 				
 			
-			\paragraph{\textcolor{blue}{Graphe des licornes}}
+			\paragraph{\textcolor{purple}{Graphe des licornes}}
 			
 			Une fois n'est pas coutume, le graphe des licornes est presque identique au graphe des zombies, mais il doit traduire une contrainte supplémentaire : si les licornes veulent traverser une case contenant un astéroïde, elles doivent dépenser deux points d'action.
 			
@@ -264,7 +256,7 @@ $					\begin{pmatrix}
 			\end{verbatim}
 			
 			La matrice d'adjacence produite par cette méthode est la suivante. On remarque que les lignes 3 et 4 comporte des $2$ et aucun $1$, des astéroides sont donc placés sur les cases 3 et 4.
-			\setcounter{MaxMatrixCols}{20}
+			\setcounter{MaxMatrixCols}{13}
 			\\
 			\begin{center}
 			$\begin{pmatrix}
@@ -283,8 +275,8 @@ $					\begin{pmatrix}
 			\end{pmatrix}$	
 			\end{center}
 			
-		\section{Mode manuel}
-			      \paragraph{\textcolor{blue}{Effacer la coloration}} 
+		\section*{\textcolor{Plum}{Mode Manuel}}
+			      \paragraph{\textcolor{purple}{Effacer la coloration}} 
     Pour effacer la coloration de la case, il suffit de colorier toutes les cases en blanc. 
     A cet effet, on réalise une boucle qui parcourant toutes les lignes  et une autre parcourant toutes les colonnes. A chaque passage de la boucle on crée un nouveau couple qui correspond à une case que l'on colorie en blanc. %la remarque sur le fait qu'il y a 3x plus de lignes que de colonne est pour moi inutile (on peut en débattre ^^)      
        
@@ -295,14 +287,14 @@ $					\begin{pmatrix}
       \end{center} 
        
        
-      \paragraph{\textcolor{blue} {Couleurs et distances}} 
+      \paragraph{\textcolor{purple} {Couleurs et distances}} 
       Ici le but est de colorier les cases ou le joueur peut se déplacer. 
       Pour cela on va  se servir de l'algorithme de Dijkstra, qui va calculer la distance des sommets autour du vaisseau , ensuite on va colorier les cases de distance 1 en vert et les cases de distances 2 en jaune. A noter que pour cela nous auront besoin d'une méthode qui transforme un sommet en couple. 
        
          
        
       
-			\paragraph{\textcolor{blue}{Mise en place de la coloration}}
+			\paragraph{\textcolor{purple}{Mise en place de la coloration}}
 			Pour que les cases sur lesquelles le joueur peut se déplacer s'affiche avec la couleur adéquat : 
 			\begin{itemize}
 				\item Vert pour une case nécessitant un point d'action
@@ -319,13 +311,13 @@ $					\begin{pmatrix}
 			
 			
 			
-	\chapter*{Mode automatique}
-		\section{Les races de base}
-			\paragraph{\textcolor{blue}{Mouvement des licornes}}
+	\chapter*{\textcolor{Fuchsia}{Mode automatique}}
+		\section*{\textcolor{Plum}{Les races de base}}
+			\paragraph{\textcolor{purple}{Mouvement des licornes}}
 			Le principe est ici de calculer un chemin gr\^ace \`a l'algorithme de dijkstra. Pour ce faire, on utilise une m\'ethode r\'eccurcive qui va lire le tableau des ant\'ec\'edents. Initialementm l'algorithme impl\'ement\'e calcule le chemin le plus court pour parcourir tout le graphe (soit du premier au dernier sommet). Pour qu'un chemin soit g\'en\'er\'e d'un point de d\'epart jusqu'a un point d'arriv\'ee, il suffit de lire le tableau des ant\'ec\'edents jusqu'a trouver le sommet sans ant\'ec\'edent (Le sommet sans ant\'ec\'edent a, dans les faits, -1 comme ant\'ec\'edent). une fois le chemin trouv\'e il est stock\'e dans un tableau, que les licornes vont lire \`a chaque tour gr\^ace \`a un compteur.
-			\paragraph{\textcolor{blue}{Mouvement des zombies}}
+			\paragraph{\textcolor{purple}{Mouvement des zombies}}
 			La solution retenue pour que les zombies ce dirigent vers les licornes en passant par le plus court chemin a \'et\'e de calculer le chemin le plus court \`a chaque tour gr\^ace \`a l'algorithme de Dijkstra. Une autre solution avait un temps \'et\'e envisag\'ee, celle d'utiliser l'algorithme de floyd Warshall, pour stocker tous les chemins les plus courts entre tous les couples de sommets du graphe des zombies. N\'enmoins, le nombre de chemin a calculer devenait rapidement cons\'equent, et il fallait jusqu'\`a une minute pour voir apparaitre la carte du jeu. Pour cette raison il a sembl\'e plus judicieux de calculer le chemin a chaque tour.
-			\paragraph{\textcolor{blue}{Les shadocks}}
+			\paragraph{\textcolor{purple}{Les shadocks}}
 			Le trajet des shadocks se calcule en deux temps :
 				
 			\begin{itemize}
@@ -333,14 +325,15 @@ $					\begin{pmatrix}
 				\item A chaque tour des shadocks, on calcule le chemin le plus court depuis leur position. il suffit ensuite de d\'eplacer le vaisseau shadock sur une a 1 de distance de leur vaisseau, et a maximum 3 de distance de leur plan\`te (la comparaison est possible gr\^ace \`a l'ArrayList \'evoqu\'e pr\'ec\'edemment.
 			\end{itemize}
 
-			\paragraph{\textcolor{blue}{Optimisation des gibis}}
+			\paragraph{\textcolor{purple}{Optimisation des gibis}}
 			Une fa\,con de r\'ealiser cette optimisation est de rep\'erer toutes les cases sur lesquelles le vaisseau shadock peut se d\'eplacer durant un tour donn\'e, puis d'interdire ces sommets aux licornes.
 			Dans un premier temps on va servir de la fonction "AntiShadock" permettant de stocker à partir de l'algorithme de dijkstra tous les sommets de distance inf\'erieure ou \'egale \`a 2.
 			Puis dans un second temps on peut grâce à la fonction plus court chemin que l'on surcharge d'un paramètre ArrayList, isoler les sommets de ce fait il sera impossible pour les licorne d'y aller.
-			\paragraph{\textcolor{blue}{Navigation suicidaire}}
+			\paragraph{\textcolor{purple}{Navigation suicidaire}}
 			Le principe ici est de faire en sorte que le vaisseau licorne ne se jette pas sur le vaisseau des zombies.
-			Pour ce faire il suffit de reprendre le principe d'isolation du sommet su soleil.
-			Ainsi le vaisseau de licorne n'ira pas sur la case vaisseau zombie en automatique et sera également géré dans le mode manuel
-			\paragraph{\textcolor{blue}{Coloniser plusieurs planètes}}
-	
+			Pour ce faire il suffit de reprendre le principe d'isolation du sommet su soleil, ce qui conduit à traiter le vaisseau des zombies comme un "soleil mouvant". Il n'y a néanmoins pas de modification de graphes, il suffit simplement de marquer à l'initialisation de l'algorithme de Dijkstra le sommet sur lequel est positionné le vaisseau des zombie comme déjà traité. Le résultat est que la distance pour aller à ce sommet restera à $+\infty$
+			\paragraph{\textcolor{purple}{Coloniser plusieurs planètes}}
+			La possibilité pour les licornes de coloniser plusieurs planètes, et notamment de se diriger vers la plus proche, a été rendu possible grâce a un ArrayList, ainsi que le tableau des distances, et celui des antécédents donnés par l'exécution de l'algorithme de Dijkstra.
+			En début de partie, chaque fois qu'une planète est ajoutée sur la carte, ces coordonnées sont stockées dans un ArrayList. A chaque tour des licornes, l'algorithme de Dijkstra est exécuté, et les coordonnées des planètes vont être converti en numéro de sommet. Grâce à ces numéros, il suffira de lire pour chaque sommet la distance la plus courte, et construire un chemin vers la planète la plus proche.
+			Une fois que la planète est atteinte, elle est effacée de l'ArrayList, ce qui permet au vaisseau des licornes de se diriger vers la planète suivante et de ne pas rester sur la planète atteinte.
 \end{document}
