@@ -312,19 +312,24 @@ $					\begin{pmatrix}
       Pour répondre à cette contrainte, le problème a été inversé. Lors de la sélection de la deuxième case, on ne vérifie pas que la nouvelle case est à une distance de 1 ou 2, mais on vérifie que le vaisseau est à une distance de 1 ou 2 de la case sélectionnée. Cette manière de procéder a été choisie pour exploiter la variable \emph{caseSelectionee} de la classe carte, et pour ne pas modifier de manière trop profonde la méthode \emph{selectionCase}.
       
       \paragraph{\textcolor{purple}{Implémentation de l'algorithme de Dijkstra}}
-      La réalisation du projet de graphe repose en grande partie sur l'algorithme de Dijsktra, il est par conséquent nécessaire de donner quelques détails sur son implémentation. 
+      La réalisation du projet de graphe repose en grande partie sur l'algorithme de Dijsktra, il est par conséquent nécessaire de donner quelques détails sur son implémentation.
+       
       Le fonctionnement de l'algorithme repose sur l'utilisation de trois tableaux. Il a été décidé d'utiliser des ArrayLists, qui ont l'avantage d'avoir une limite dynamique. Un troisième tableau a été ajouté, il contient le numéro de tous les sommets, son utilité s'est limité aux tests d'exécution de l'algorithme.
+      
       Lors de l'initialisation des tableaux, l'indice 0 est rempli avec une valeur fictive ($+\infty$ pour le tableau des distances, True pour le tableau de booléen, -1 pour les antécédents). Cela a pour avantage de pouvoir faire correspondre l'indice de chaque tableau avec un numéro de sommet. Les valeurs à l'indice 0 ont été choisie pour ne pas gêner le déroulement de l'algorithme. Représenter $+\infty$ s'est traduit par la création d'une fonction \emph{infini} qui renvoie la somme de tous les poids des arêtes+1.
+      
       Pour déterminer si tous les sommets ont été traité au cours de l'exécution de l'algorithme, une fonction \emph{listeTerminee} a été créée. Elle lit le tableau de booléen et renvoie false si un élément dans ce tableau est à false.
        
+		A chaque boucle de l'algorithme, il convient de connaitre le sommet non traité comportant la distance la plus courte. Une méthode a donc été rédiger pour renvoyer le sommet comportant la distance la plus courte. La méthode parcourt le tableau des distances, et récupère l'indice avec la plus faible valeur parmi les sommets non traités.	
 			
 			
-			
+
 	\chapter*{\textcolor{Fuchsia}{Mode automatique}}
 		\section*{\textcolor{Plum}{Les races de base}}
 			\paragraph{\textcolor{purple}{Mouvement des licornes}}
 			Le principe est ici de calculer un chemin gr\^ace \`a l'algorithme de dijkstra. Pour ce faire, on utilise une m\'ethode r\'eccurcive qui va lire le tableau des ant\'ec\'edents. Initialementm l'algorithme impl\'ement\'e calcule le chemin le plus court pour parcourir tout le graphe (soit du premier au dernier sommet). Pour qu'un chemin soit g\'en\'er\'e d'un point de d\'epart jusqu'a un point d'arriv\'ee, il suffit de lire le tableau des ant\'ec\'edents jusqu'a trouver le sommet sans ant\'ec\'edent (Le sommet sans ant\'ec\'edent a, dans les faits, -1 comme ant\'ec\'edent). une fois le chemin trouv\'e il est stock\'e dans un tableau, que les licornes vont lire \`a chaque tour gr\^ace \`a un compteur.
 			\paragraph{\textcolor{purple}{Mouvement des zombies}}
+			
 			La solution retenue pour que les zombies ce dirigent vers les licornes en passant par le plus court chemin a \'et\'e de calculer le chemin le plus court \`a chaque tour gr\^ace \`a l'algorithme de Dijkstra. Une autre solution avait un temps \'et\'e envisag\'ee, celle d'utiliser l'algorithme de floyd Warshall, pour stocker tous les chemins les plus courts entre tous les couples de sommets du graphe des zombies. N\'enmoins, le nombre de chemin a calculer devenait rapidement cons\'equent, et il fallait jusqu'\`a une minute pour voir apparaitre la carte du jeu. Pour cette raison il a sembl\'e plus judicieux de calculer le chemin a chaque tour.
 			
 	\section*{\textcolor{Plum}{Les shadocks et les gibis}}			
@@ -337,14 +342,28 @@ $					\begin{pmatrix}
 			\end{itemize}
 
 			\paragraph{\textcolor{purple}{Optimisation des gibis}}
-			Une façcon de ré aliser cette optimisation est de rep\'erer toutes les cases sur lesquelles le vaisseau shadock peut se d\'eplacer durant un tour donn\'e, puis d'interdire ces sommets aux licornes.
+			Une façon de ré aliser cette optimisation est de rep\'erer toutes les cases sur lesquelles le vaisseau shadock peut se d\'eplacer durant un tour donn\'e, puis d'interdire ces sommets aux licornes.
 			Dans un premier temps on va servir de la fonction "AntiShadock" permettant de stocker à partir de l'algorithme de dijkstra tous les sommets de distance inf\'erieure ou \'egale \`a 2.
 			Puis dans un second temps on peut grâce à la fonction plus court chemin que l'on surcharge d'un paramètre ArrayList, isoler les sommets de ce fait il sera impossible pour les licorne d'y aller.
 			\paragraph{\textcolor{purple}{Navigation suicidaire}}
 			Le principe ici est de faire en sorte que le vaisseau licorne ne se jette pas sur le vaisseau des zombies.
+			
 			Pour ce faire il suffit de reprendre le principe d'isolation du sommet su soleil, ce qui conduit à traiter le vaisseau des zombies comme un "soleil mouvant". Il n'y a néanmoins pas de modification de graphes, il suffit simplement de marquer à l'initialisation de l'algorithme de Dijkstra le sommet sur lequel est positionné le vaisseau des zombie comme déjà traité. Le résultat est que la distance pour aller à ce sommet restera à $+\infty$, c'est à dire inaccessible pour les licornes quelque soit le mode de jeu.
+			\begin{center}  
+          \includegraphics[scale=0.30]{Images/isoleZombie.png}
+      		\end{center} 
+      		
+      		L'algorithme aboutit au résultat ci-dessus.
+      
 			\paragraph{\textcolor{purple}{Coloniser plusieurs planètes}}
 			La possibilité pour les licornes de coloniser plusieurs planètes, et notamment de se diriger vers la plus proche, a été rendu possible grâce a un ArrayList, ainsi que le tableau des distances, et celui des antécédents donnés par l'exécution de l'algorithme de Dijkstra.
+			
 			En début de partie, chaque fois qu'une planète est ajoutée sur la carte, ces coordonnées sont stockées dans un ArrayList. A chaque tour des licornes, l'algorithme de Dijkstra est exécuté, et les coordonnées des planètes vont être converti en numéro de sommet. Grâce à ces numéros, il suffira de lire pour chaque sommet la distance la plus courte, et construire un chemin vers la planète la plus proche.
-			Une fois que la planète est atteinte, elle est effacée de l'ArrayList, ce qui permet au vaisseau des licornes de se diriger vers la planète suivante et de ne pas rester sur la planète atteinte.
+			
+			Une fois que la planète est atteinte, elle est effacée de l'ArrayList, ce qui permet au vaisseau des licornes de se diriger vers la planète suivante et de ne pas rester sur la planète atteinte.\\[3cm]
+			\begin{center}
+			\includegraphics[scale=1]{Images/Licornes.jpg}
+			\end{center}
+			
+
 \end{document}
